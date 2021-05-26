@@ -4,6 +4,5 @@
     cidr_block: 10.10.0.0/16
     region: us-east-2
     tags:
-      module: ec2_vpc_net
-      this: works
-    tenancy: default
+        module: ec2_vpc_net
+        this: works
