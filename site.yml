@@ -1,0 +1,6 @@
+- name: Connect Azure
+  hosts: all
+  gather_facts: true
+  tasks:
+  - include_role:
+    name: aws-vpc 

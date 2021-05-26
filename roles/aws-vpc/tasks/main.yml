@@ -1,0 +1,3 @@
+---
+# tasks file for aws-vpc
+- include: aws-vpc.yml
