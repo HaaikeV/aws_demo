@@ -1,6 +1,8 @@
 - name: Connect AWS
   hosts: localhost
   gather_facts: true
+  vars:
+   ansible_connection: local
   tasks:
   - include_role:
       name: aws-vpc 
