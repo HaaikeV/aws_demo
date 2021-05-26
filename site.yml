@@ -1,4 +1,4 @@
-- name: Connect Azure
+- name: Connect AWS
   hosts: all
   gather_facts: true
   tasks:
