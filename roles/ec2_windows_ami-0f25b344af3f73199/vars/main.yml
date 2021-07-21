@@ -4,7 +4,7 @@ region: us-east-2
 key_name: awskey
 instance_type: t2.micro
 image: ami-0f25b344af3f73199
-vpc_subnet_id: subnet-01205d8da48ef58b1
+vpc_subnet_id: subnet-02f67dc05a9dec240
 tag_image: test
 user_data: user_data/winrm.txt
 instance_role: ec2_iam_role
