@@ -1,0 +1,4 @@
+---
+# vars file for roles/ec2_security_group
+ec2_group_name: sg_test
+region: us-east-2

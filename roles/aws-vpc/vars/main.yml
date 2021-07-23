@@ -1,2 +1,4 @@
 ---
 # vars file for aws-vpc
+ec2_vpc_name: vpc_test
+region: us-east-2
