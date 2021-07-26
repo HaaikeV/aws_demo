@@ -1,7 +1,7 @@
 ---
 # tasks file for roles/ec2_security_group
 - name: find vpc id for sg object "{{ object_tag_identifier }}"
-  ec2_vpc_subnet_info:
+  ec2_vpc_net_info:
     region: "{{ region }}"
     filters:
       "tag:environment": test
@@ -10,18 +10,12 @@
 - name: display some output
   debug: var=vpc_net_info_output
 
-- set_fact:
-    vpc_id_input: "{{ vpc_net_info_output.subnets.vpc_id }}"
-
-- name: display some output
-  debug: var=vpc_id_input  
-
 - name: ensure security group is present
   ec2_group:
     state: present
     name: "{{ ec2_group_name }}"
     description: Inbound WinRM and RDP
-    vpc_id: "{{ vpc_id_input }}"
+    vpc_id: "{{ vpc_net_info_output.vpc.id }}"
     region: "{{ region }}"
     rules:
     - proto: tcp
