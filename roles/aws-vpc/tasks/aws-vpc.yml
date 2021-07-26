@@ -9,7 +9,7 @@
   register: vpc_output
 
 - set_fact:
-    set_ec2_vpc_id: "{{ vpc_output.vpc_id }}"
+    set_ec2_vpc_id: "{{ vpc_output.vpc-id }}"
 
 - name: Create subnet for database servers
   ec2_vpc_subnet:
