@@ -14,7 +14,7 @@
 - name: Create subnet for database servers
   ec2_vpc_subnet:
     state: present
-    vpc_id: "{{ vpc_output.vpc-id }}"
+    vpc_id: "{{ vpc_output.vpc.id }}"
     cidr: 10.10.0.0/16
     tags:
         name: ec2_vpc_subn_name
