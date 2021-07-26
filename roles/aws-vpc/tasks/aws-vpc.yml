@@ -11,7 +11,7 @@
 
 - name: Create EC2 vpc subnet
   ec2_vpc_subnet:
-    vpc_id: "{{ vpc_output.vpcs.id }}"
+    vpc_id: "{{ vpc_output.vpc.id }}"
     region: "{{ region }}"
     state: present
     cidr: 10.10.0.0/16
