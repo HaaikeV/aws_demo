@@ -2,6 +2,7 @@
 # tasks file for roles/ec2_security_group
 - name: find vpc id for object "{{ object_tag_identifier }}"
   ec2_vpc_net_info:
+    region: "{{ region }}"
     filters:
       "tag:Name": test
   register: vpc_net_info_output
