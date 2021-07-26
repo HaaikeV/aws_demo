@@ -15,7 +15,7 @@
     state: present
     name: "{{ ec2_group_name }}"
     description: Inbound WinRM and RDP
-    vpc_id: "{{ vpc_net_info_output.vpc.id }}"
+    vpc_id: "{{ vpc_net_info_output.vpc_id }}"
     region: "{{ region }}"
     rules:
     - proto: tcp
