@@ -16,5 +16,5 @@
     state: present
     cidr: 10.10.0.0/16
     resource_tags:
-        name: Test Subnet
+        environment: test
   register: vpc_subnet_output
