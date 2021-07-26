@@ -4,6 +4,6 @@
     cidr_block: 10.10.0.0/16
     region: "{{ region }}"
     tags:
-        module: ec2_vpc_net
-        this: works
+        name: ec2_vpc_name
+        environment: test
   register: vpc_output

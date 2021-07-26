@@ -4,6 +4,7 @@
   ec2_group:
     name: "{{ ec2_group_name }}"
     description: Inbound WinRM and RDP
+#    vpc_id: ec2_vpc_id
     region: "{{ region }}"
     rules:
     - proto: tcp
