@@ -8,7 +8,7 @@
   register: vpc_net_info_output
 
 - name: display some output
-  debug: var="{{ vpc_net_info_output.vpcs.id }}"
+  debug: var="{{ vpc_net_info_output.vpcs.vpc_id }}"
 
 - name: ensure security group is present
   ec2_group:
