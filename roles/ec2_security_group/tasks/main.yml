@@ -7,12 +7,15 @@
       "tag:environment": test
   register: vpc_net_info_output
 
+- name: display some output
+  debug: var=vpc_net_info_output.vpcs.id
+
 - name: ensure security group is present
   ec2_group:
     state: present
     name: "{{ ec2_group_name }}"
     description: Inbound WinRM and RDP
-    vpc_id: "{{ vpc_net_info_output.vpcs.vpc_id }}"
+    vpc_id: "{{ vpc_net_info_output.vpcs.id }}"
     region: "{{ region }}"
     rules:
     - proto: tcp
