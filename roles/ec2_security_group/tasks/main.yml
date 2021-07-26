@@ -4,7 +4,7 @@
   ec2_vpc_net_info:
     region: "{{ region }}"
     filters:
-      "tag:Name": test
+      "tag:environment": test
   register: vpc_net_info_output
 
 - name: ensure security group is present
