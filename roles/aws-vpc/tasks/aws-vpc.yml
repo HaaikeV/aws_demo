@@ -7,3 +7,16 @@
         name: ec2_vpc_name
         environment: test
   register: vpc_output
+
+- set_fact:
+    set_ec2_vpc_id: "{{ vpc_output.vpc_id }}"
+
+- name: Create subnet for database servers
+  ec2_vpc_subnet:
+    state: present
+    vpc_id: "{{ set_ec2_vpc_id }}"
+    cidr: 10.10.0.0/16
+    tags:
+        name: ec2_vpc_subn_name
+        environment: test
+  register: vpc_subnet_output
