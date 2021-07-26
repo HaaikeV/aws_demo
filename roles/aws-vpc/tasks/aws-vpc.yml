@@ -3,6 +3,7 @@
     name: "{{ ec2_vpc_name }}"
     cidr_block: 10.10.0.0/16
     region: "{{ region }}"
+    state: present
     tags:
         name: ec2_vpc_name
         environment: test
@@ -11,12 +12,12 @@
 #- set_fact:
 #    set_ec2_vpc_id: "{{ vpc_output.vpc-id }}"
 
-- name: Create subnet for database servers
+- name: Create EC2 vpc subnet
   ec2_vpc_subnet:
-    state: present
     vpc_id: "{{ vpc_output.vpc.id }}"
+    region: "{{ region }}"
+    state: present
     cidr: 10.10.0.0/16
-    tags:
-        name: ec2_vpc_subn_name
-        environment: test
+    resource_tags:
+        name: Test Subnet
   register: vpc_subnet_output
