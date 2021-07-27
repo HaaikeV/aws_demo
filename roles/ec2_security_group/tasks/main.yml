@@ -11,7 +11,7 @@
   debug: var=vpc_net_info_output
 
 - set_fact:
-    lloyd_test: vpc_net_info_output.vpcs.id  
+    lloyd_test.results: "{{ vpc_net_info_output.vpcs.id }}"  
 
 - name: ensure security group is present
   ec2_group:
