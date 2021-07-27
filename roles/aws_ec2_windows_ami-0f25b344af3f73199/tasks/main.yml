@@ -1,12 +1,32 @@
 ---
 # tasks file for roles/ec2_windows_ami-0f25b344af3f73199
+- name: find security group id for ec2 instance "{{ aws_instance_type }}"
+  ec2_group_info:
+    region: "{{ aws_region }}"
+    filters:
+      "tag:environment": "{{ aws_environment_identifier }}"
+  register: ec2_group_info_output
+
+- set_fact:  
+    security_group_id_fact: "{{ ec2_group_info_output.security_groups[0] }}"
+
+- name: find vpc id for sg object "{{ aws_security_group_name }}"
+  ec2_vpc_net_info:
+    region: "{{ aws_region }}"
+    filters:
+      "tag:environment": "{{ aws_environment_identifier }}"
+  register: vpc_net_info_output
+
+- set_fact:
+    vpc_id_fact: "{{ vpc_net_info_output.vpcs[0].id }}"
+
 - name: create microsoft ec2
   ec2_instance:
     region: "{{ aws_region }}"
     key_name: "{{ aws_ec2_key_name }}"
-    vpc_subnet_id: "{{ vpc_subnet_id }}"
+    vpc_subnet_id: "{{ vpc_id_fact }}"
     instance_type: "{{ aws_instance_type }}"
-    security_group: "{{ sg_output.group_id }}"
+    security_group: "{{ security_group_id_fact }}"
     network:
       assign_public_ip: true
     image_id: "{{ aws_ami_image_id }}"
@@ -16,4 +36,4 @@
       operating_system: "{{ aws_os_type }}"
       environment: "{{ aws_environment_identifier }}"
       owner: "{{ aws_ansible_iam_role }}"
-      group: "{{ aws_ec2_group }}"
+      group: "{{ aws_security_group }}"
