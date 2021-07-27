@@ -4,9 +4,9 @@
   ec2_instance:
     region: "{{ aws_region }}"
     key_name: "{{ aws_ec2_key_name }}"
-    vpc_subnet_id: "{{ vpc_subnet_id }}"     xxxxxxxxxx
+    vpc_subnet_id: "{{ vpc_subnet_id }}"
     instance_type: "{{ aws_instance_type }}"
-    security_group: "{{ sg_output.group_id }}" xxxxxxxxx
+    security_group: "{{ sg_output.group_id }}"
     network:
       assign_public_ip: true
     image_id: "{{ aws_ami_image_id }}"
