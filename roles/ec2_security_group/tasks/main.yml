@@ -2,19 +2,32 @@
 # tasks file for roles/ec2_security_group
 - name: find vpc id for sg object "{{ object_tag_identifier }}"
   ec2_vpc_net_info:
+    aws_access_key: AKIAWFOVG5SHLQLNBPS2
+    aws_secret_key: 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
     region: "{{ region }}"
     filters:
       "tag:environment": test
   register: vpc_net_info_output
 
-- debug: var=vpc_net_info_output.vpcs.id
+- name: display some output
+  debug: 
+    var: vpc_net_info_output
+
+- set_fact:
+    lloyd_test: "{{ vpc_net_info_output.vpcs[0].id }}"
+
+- name: display lloyd fact output
+  debug: 
+    var: lloyd_test
 
 - name: ensure security group is present
   ec2_group:
     state: present
+    aws_access_key: AKIAWFOVG5SHLQLNBPS2
+    aws_secret_key: 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
     name: "{{ ec2_group_name }}"
     description: Inbound WinRM and RDP
-    vpc_id: "{{ item.vpcs.id }}"
+    vpc_id: "{{ lloyd_test }}"
     region: "{{ region }}"
     rules:
     - proto: tcp
@@ -29,7 +42,7 @@
       from_port: 3389
       to_port: 3389
       cidr_ip: 0.0.0.0/0
-      rules_egress:
-    - proto: -1
-      cidr_ip: 0.0.0.0/0
+    #   rules_egress:
+    # - proto: -1
+    #   cidr_ip: 0.0.0.0/0
   register: sg_output
