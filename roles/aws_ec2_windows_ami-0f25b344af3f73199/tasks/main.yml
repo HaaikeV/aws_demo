@@ -1,0 +1,19 @@
+---
+# tasks file for roles/ec2_windows_ami-0f25b344af3f73199
+- name: create microsoft ec2
+  ec2_instance:
+    region: "{{ aws_region }}"
+    key_name: "{{ aws_ec2_key_name }}"
+    vpc_subnet_id: "{{ vpc_subnet_id }}"     xxxxxxxxxx
+    instance_type: "{{ aws_instance_type }}"
+    security_group: "{{ sg_output.group_id }}" xxxxxxxxx
+    network:
+      assign_public_ip: true
+    image_id: "{{ aws_ami_image_id }}"
+    user_data:  "{{ lookup('file', '{{ user_data }}') }}"
+    instance_role: "{{ aws_ansible_iam_role }}"
+    tags:
+      operating_system: "{{ aws_os_type }}"
+      environment: "{{ aws_environment_identifier }}"
+      owner: "{{ aws_ansible_iam_role }}"
+      group: "{{ aws_ec2_group }}"

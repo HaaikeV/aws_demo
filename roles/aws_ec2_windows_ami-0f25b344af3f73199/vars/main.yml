@@ -1,0 +1,11 @@
+---
+# vars file for roles/ec2_windows_ami-0f25b344af3f73199
+aws_region: us-east-2
+aws_ec2_key_name: awskey
+aws_instance_type: t2.micro
+aws_ami_image_id: ami-0f25b344af3f73199
+aws_environment_identifier: test
+aws_ec2_windows_user_data: user_data/winrm.txt
+aws_ansible_iam_role: iam_ansible_role
+aws_os_type: windows
+aws_ec2_group: sandbox
