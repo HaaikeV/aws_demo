@@ -7,8 +7,7 @@
       "tag:environment": test
   register: vpc_net_info_output
 
-- debug: var=item
-  with_items: vpc_net_info_output 
+- debug: var=vpc_net_info_output.vpcs.id
 
 - name: ensure security group is present
   ec2_group:
