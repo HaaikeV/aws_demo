@@ -1,5 +1,5 @@
 ---
 # vars file for roles/ec2_security_group
-ec2_group_name: sg_test
+ec2_group_name: sg_test2
 region: us-east-2
 object_tag_identifier: test
