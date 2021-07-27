@@ -1,5 +1,6 @@
 ---
 # vars file for roles/ec2_security_group
-ec2_group_name: sg_test2
-region: us-east-2
-object_tag_identifier: test
+aws_security_group_name: sg_test2
+aws_region: us-east-2
+aws_environment_identifier: test
+aws_ansible_iam_role: iam_ansible_role

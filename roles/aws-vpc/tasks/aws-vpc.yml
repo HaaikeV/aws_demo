@@ -1,20 +1,21 @@
 - name: create a VPC with dedicated tenancy and a couple of tags
   ec2_vpc_net:
-    name: "{{ ec2_vpc_name }}"
+    name: "{{ aws_vpc_name }}"
     cidr_block: 10.10.0.0/16
-    region: "{{ region }}"
+    region: "{{ aws_region }}"
     state: present
     tags:
-        name: ec2_vpc_name
-        environment: test
-  register: vpc_output
+        name: "{{ aws_vpc_name }}"
+        environment: "{{ aws_environment_identifier }}"
+        owner: aws_ansible_iam_role
+  register: "{{ vpc_output }}"
 
-- name: Create EC2 vpc subnet
+- name: Create VPC subnet and attach to "{{ aws_vpc_name }}"
   ec2_vpc_subnet:
     vpc_id: "{{ vpc_output.vpc.id }}"
-    region: "{{ region }}"
+    region: "{{ aws_region }}"
     state: present
     cidr: 10.10.0.0/16
     resource_tags:
-        environment: test
+        environment: "{{ aws_environment_identifier }}"
   register: vpc_subnet_output
