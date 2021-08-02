@@ -7,4 +7,9 @@
   - include_role:
       name: aws-vpc
   - include_role:
+      name: aws_vpc_subnet    
+  - include_role:
       name: aws_security_group
+  - include_role:
+      name: aws_ec2_windows_ami-0f25b344af3f73199
+
