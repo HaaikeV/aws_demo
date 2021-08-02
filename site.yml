@@ -7,4 +7,4 @@
   - include_role:
       name: aws-vpc
   - include_role:
-      name: ec2_security_group
+      name: aws_security_group
