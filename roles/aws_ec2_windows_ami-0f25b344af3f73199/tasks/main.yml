@@ -18,7 +18,7 @@
   register: ec2_vpc_subnet_info_output
 
 - set_fact:
-    vpc_subnet_id_fact: "{{ ec2_vpc_subnet_info_output.subnets.id }}"
+    vpc_subnet_id_fact: "{{ ec2_vpc_subnet_info_output.subnets[0].id }}"
 
 - name: find security group id in environment "{{ aws_environment_identifier }}" and region "{{ aws_region }}"
   ec2_group_info:
