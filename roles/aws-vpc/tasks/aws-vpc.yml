@@ -8,7 +8,7 @@
         name: "{{ aws_vpc_name }}"
         environment: "{{ aws_environment_identifier }}"
         owner: aws_ansible_iam_role
-  register: "{{ vpc_output }}"
+  register: vpc_output
 
 - name: Create VPC subnet and attach to "{{ aws_vpc_name }}"
   ec2_vpc_subnet:
