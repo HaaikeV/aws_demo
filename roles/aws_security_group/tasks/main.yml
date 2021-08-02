@@ -45,6 +45,6 @@
   register: ec2_group_info_output
 
 - set_fact:  
-    security_group_id_fact: "{{ ec2_group_info_output.security_groups[0] }}"
+    security_group_id_fact: "{{ ec2_group_info_output.security_groups[0].group_id }}"
 
 - debug: var=ec2_group_info_output.security_groups[0].group_id
