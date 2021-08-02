@@ -24,7 +24,12 @@
 - name: create a new ec2 key pair, returns generated private key
   ec2_key:
     name: "{{ aws_ec2_key_name }}"
+    region: "{{ aws_region }}"
   register: ec2_key_output      
+
+- name: Save private key
+  copy: content="{{ ec2_key_output.key.private_key }}" dest="./aws.key.pem" mode=0600
+  when: ec2_key_output.changed
 
 - name: create microsoft ec2
   ec2_instance:
