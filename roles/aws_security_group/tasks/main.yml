@@ -19,7 +19,7 @@
     region: "{{ aws_region }}"
     tags:
       name: "{{ aws_security_group_name }}"
-      admin_name: "{{ aws_ansible_iam_role }}"
+      owner: "{{ aws_ansible_iam_role }}"
       environment: "{{ aws_environment_identifier }}"
     rules:
     - proto: tcp
@@ -35,16 +35,3 @@
       to_port: 3389
       cidr_ip: 0.0.0.0/0
   register: sg_output
-
-- name: find security group id for ec2 instance "{{ aws_instance_type }}"
-  ec2_group_info:
-    region: "{{ aws_region }}"
-    filters:
-      vpc-id: "{{ vpc_id_fact }}"
-      "tag:environment": "{{ aws_environment_identifier }}"
-  register: ec2_group_info_output
-
-- set_fact:  
-    security_group_id_fact: "{{ ec2_group_info_output.security_groups[0].group_id }}"
-
-- debug: var=ec2_group_info_output.security_groups[0].group_id
