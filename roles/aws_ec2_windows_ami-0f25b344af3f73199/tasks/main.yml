@@ -39,10 +39,11 @@
 
 - name: Save private key
   copy: content="{{ ec2_key_output.key.private_key }}" dest="/tmp/{{ aws_ec2_key_name }}.pem" mode=0600
-  when: ec2_key_output.changed
+  when: ec2_key_output.changed == 
 
 - name: create microsoft ec2 in evironment "{{ aws_environment_identifier }}" and region "{{ aws_region }}" 
   ec2:
+    id: ec2_test
     key_name: "{{ aws_ec2_key_name }}"
     instance_profile_name: "{{ aws_ansible_iam_role }}"
     group_id: "{{ security_group_id_fact }}"
