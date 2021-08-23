@@ -8,5 +8,5 @@ aws_environment_identifier: test
 aws_ec2_windows_user_data: user_data/winrm.txt
 aws_ansible_iam_role: iam_ansible_role
 aws_os_type: windows
-aws_ec2_group: testt
+aws_ec2_group: test
 aws_ec2_instance_name: test
