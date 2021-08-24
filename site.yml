@@ -1,4 +1,4 @@
-- name: Connect AWS
+- name: Connect and create environment in AWS
   hosts: localhost
   gather_facts: true
   vars:
@@ -12,4 +12,11 @@
       name: aws_security_group
   - include_role:
       name: aws_ec2_windows_ami-0f25b344af3f73199
+
+- name: Configure windows instance
+  hosts: aws_ec2
+  tasks:
+  - include_role: 
+      name: aws_ec2_windows_setup
+    
 
