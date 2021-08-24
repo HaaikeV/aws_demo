@@ -18,5 +18,7 @@
   tasks:
   - include_role: 
       name: aws_ec2_windows_setup
+  - tags:
+      environment: test
     
 
