@@ -44,6 +44,7 @@
 - name: create microsoft ec2 in evironment "{{ aws_environment_identifier }}" and region "{{ aws_region }}" 
   ec2:
     id: "{ aws_ec2_instance_name }"
+    instance_profile_name: "{{ aws_ansible_iam_role }}"
     key_name: "{{ aws_ec2_key_name }}"
     group_id: "{{ security_group_id_fact }}"
     instance_type: "{{ aws_instance_type }}"
