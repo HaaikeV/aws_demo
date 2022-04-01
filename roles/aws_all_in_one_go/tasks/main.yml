@@ -31,6 +31,7 @@
   ec2_group:
     state: present
     name: "{{ aws_security_group_name }}"
+    description: this is a security group for ansible
     region: "{{ aws_region }}"
     vpc_id: "{{ my_vpc.vpc.id }}"
     tags:
