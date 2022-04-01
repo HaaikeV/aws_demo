@@ -62,6 +62,6 @@
       operating_system: "{{ aws_os_type }}"
       ami_id: "{{ aws_ami_image_id }}"
       owner: "{{ aws_ansible_iam_role }}"
-      group: "{{ security_group_id_fact }}"
+      group: "{{ firewall.group_id }}"
     name: "{{ aws_ec2_instance_name }}"
   register: ec2
