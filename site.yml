@@ -4,20 +4,22 @@
   vars:
    ansible_connection: local
   tasks:
-  - include_role:
-      name: aws-vpc
-  - include_role:
-      name: aws_vpc_subnet    
-  - include_role:
-      name: aws_security_group
-  - include_role:
-      name: aws_ec2_windows_ami-0f25b344af3f73199
+   - include_role:
+       name: aws_all_in_one_go
+ # - include_role:
+ #     name: aws-vpc
+ # - include_role:
+ #     name: aws_vpc_subnet    
+ # - include_role:
+ #     name: aws_security_group
+  #- include_role:
+  #    name: aws_ec2_windows_ami-0f25b344af3f73199
 
-- name: Configure windows instance
-  hosts: aws_ec2
-  tasks:
-  - include_role: 
-      name: aws_ec2_windows_setup
+#- name: Configure windows instance
+#  hosts: aws_ec2
+#  tasks:
+#  - include_role: 
+#      name: aws_ec2_windows_setup
       
     
 
