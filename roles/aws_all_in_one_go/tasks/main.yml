@@ -1,65 +1,66 @@
 # tasks file for roles/aws_all_in_one_go
-  - name: Setting the correct AMI per us-east-1
-    set_fact:
-      aws_ami_image_id: ami-0f88c5923d28f345b
-    when: aws_region == "us-east-1"   
+- name: Setting the correct AMI per us-east-1
+  set_fact:
+    aws_ami_image_id: ami-0f88c5923d28f345b
+  when: aws_region == "us-east-1"   
 
-  - name: Setting the correct AMI per us-east-1
-    set_fact:
-      aws_ami_image_id: ami-09d9c5cdcfb8fc655
-    when: aws_region == "us-west-1" 
+- name: Setting the correct AMI per us-east-1
+  set_fact:
+    aws_ami_image_id: ami-09d9c5cdcfb8fc655
+  when: aws_region == "us-west-1" 
 
-  - name: create a new ec2 key pair
-    ec2_key:
-      name: "{{ aws_ec2_key_name }}"
-      region: "{{ aws_region }}"
-      key_material: 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC8Xvsh1tx6ZStdeOmZOdfyjlEIEaHqP83F2Mw+E4BehpAuAYJQpLmEN5D4/5hTnf0v1BV8ZMviGfynrfDX1Tg8tGFlrnDS7qQdNPfRWAf2o9kgdht2nnGFBAMiCQ6gBNHE4i4KfzhYZzrEqFQzb4JFxQ2NcBcH/hPFpDeFc1rJTZaijR2Fd+snhiNtfhKPtDU6INI8QGx7PFhJUZAQQly6/QXEiRsHvAKfiv0TBTrKhd6DujabN2Ot0R1bFTewxqtgUs03/owpLJ1OkDhKjhWfXkocoZxy43g8M5XuEiI2t8Ry8CyR4CRqf0/t2ITxyZNIYMehZJc5wKSF+doCExPv/k+fbHUSHUJthnXp7QX1NBhqwDcY/qG7beawOCOgt/UfOflPoDaUh5tSh3pMbB68SmdSncxy+L+G12cs3DK6A5CtxDCu/3R3Divzz7cP97MgwUyTO9r/PIsUhKzdSMB8nnirrlCvTtXNBakmC/voPeVEWVyakeHPU+l9aj1VaTs= hvanderm@hvanderm.remote.csb'
-    register: ec2_key_output
+- name: create a new ec2 key pair
+  ec2_key:
+    name: "{{ aws_ec2_key_name }}"
+    region: "{{ aws_region }}"
+    key_material: 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC8Xvsh1tx6ZStdeOmZOdfyjlEIEaHqP83F2Mw+E4BehpAuAYJQpLmEN5D4/5hTnf0v1BV8ZMviGfynrfDX1Tg8tGFlrnDS7qQdNPfRWAf2o9kgdht2nnGFBAMiCQ6gBNHE4i4KfzhYZzrEqFQzb4JFxQ2NcBcH/hPFpDeFc1rJTZaijR2Fd+snhiNtfhKPtDU6INI8QGx7PFhJUZAQQly6/QXEiRsHvAKfiv0TBTrKhd6DujabN2Ot0R1bFTewxqtgUs03/owpLJ1OkDhKjhWfXkocoZxy43g8M5XuEiI2t8Ry8CyR4CRqf0/t2ITxyZNIYMehZJc5wKSF+doCExPv/k+fbHUSHUJthnXp7QX1NBhqwDcY/qG7beawOCOgt/UfOflPoDaUh5tSh3pMbB68SmdSncxy+L+G12cs3DK6A5CtxDCu/3R3Divzz7cP97MgwUyTO9r/PIsUhKzdSMB8nnirrlCvTtXNBakmC/voPeVEWVyakeHPU+l9aj1VaTs= hvanderm@hvanderm.remote.csb'
+  register: ec2_key_output
 
-  - name: Create VPC 
-    ec2_vpc_net:
+- name: Create VPC 
+  ec2_vpc_net:
+    name: "{{ aws_vpc_name }}"
+    cidr_block: "{{ aws_vpc_cidr }}"
+    region: "{{ aws_region }}"
+    tags:
       name: "{{ aws_vpc_name }}"
-      cidr_block: "{{ aws_vpc_cidr }}"
-      region: "{{ aws_region }}"
-      tags:
-        name: "{{ aws_vpc_name }}"
-        environment: "{{ aws_environment_identifier }}"
-        owner: aws_ansible_iam_role 
-    register: my_vpc  
+      environment: "{{ aws_environment_identifier }}"
+      owner: aws_ansible_iam_role 
+  register: my_vpc  
 
-  - name: Create a security group
-    ec2_group:
+- name: Create a security group
+  ec2_group:
+    state: present
+    name: "{{ aws_security_group_name }}"
+    region: "{{ aws_region }}"
+    vpc_id: "{{ my_vpc.vpc.id }}"
+    tags:
       name: "{{ aws_security_group_name }}"
-      region: "{{ aws_region }}"
-      vpc_id: "{{ my_vpc.vpc.id }}"
-      rules:
-        - proto: all
-          cidr_ip: "{{ aws_vpc_cidr }}"
-        - proto: all
-          group_name: ansible
-      rules_egress:
-        - proto: all
-          cidr_ip: 0.0.0.0/0
-      tags:
-        name: "{{ aws_security_group_name }}"
-        owner: "{{ aws_ansible_iam_role }}"
-        environment: "{{ aws_environment_identifier }}"
-    register: firewall
+      owner: "{{ aws_ansible_iam_role }}"
+      environment: "{{ aws_environment_identifier }}"
+    rules:
+      - proto: all
+        cidr_ip: "{{ aws_vpc_cidr }}"
+      - proto: all
+        group_name: ansible
+    rules_egress:
+      - proto: all
+        cidr_ip: 0.0.0.0/0
+  register: firewall
 
-  - name: Create an EC2 instance
-    ec2:
-      key_name: "{{ aws_ec2_key_name }}"
-      region: "{{ aws_region }}"
-      security_group: "{{ firewall.group_id }}"
-      instance_type: "{{ aws_instance_type }}"
-      image_id: "{{ aws_ami_image_id }}"
-      wait: yes
-      instance_tags:
-        instance_name: "{{ aws_ec2_instance_name }}"
-        environment: "{{ aws_environment_identifier }}"
-        operating_system: "{{ aws_os_type }}"
-        ami_id: "{{ aws_ami_image_id }}"
-        owner: "{{ aws_ansible_iam_role }}"
-        group: "{{ security_group_id_fact }}"
-      name: "{{ aws_ec2_instance_name }}"
-    register: ec2
+- name: Create an EC2 instance
+  ec2:
+    key_name: "{{ aws_ec2_key_name }}"
+    region: "{{ aws_region }}"
+    security_group: "{{ firewall.group_id }}"
+    instance_type: "{{ aws_instance_type }}"
+    image_id: "{{ aws_ami_image_id }}"
+    wait: yes
+    instance_tags:
+      instance_name: "{{ aws_ec2_instance_name }}"
+      environment: "{{ aws_environment_identifier }}"
+      operating_system: "{{ aws_os_type }}"
+      ami_id: "{{ aws_ami_image_id }}"
+      owner: "{{ aws_ansible_iam_role }}"
+      group: "{{ security_group_id_fact }}"
+    name: "{{ aws_ec2_instance_name }}"
+  register: ec2
