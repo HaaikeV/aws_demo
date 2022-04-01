@@ -50,11 +50,13 @@
 
 - name: Create an EC2 instance
   ec2:
+    id: "{{ aws_ec2_instance_name }}"
+    instance_profile_name: "{{ aws_ansible_iam_role }}"
     key_name: "{{ aws_ec2_key_name }}"
     region: "{{ aws_region }}"
-    security_group: "{{ firewall.group_id }}"
+    group_id: "{{ firewall.group_id }}"
     instance_type: "{{ aws_instance_type }}"
-    image_id: "{{ aws_ami_image_id }}"
+    image: "{{ aws_ami_image_id }}"
     wait: yes
     instance_tags:
       instance_name: "{{ aws_ec2_instance_name }}"
@@ -63,5 +65,5 @@
       ami_id: "{{ aws_ami_image_id }}"
       owner: "{{ aws_ansible_iam_role }}"
       group: "{{ firewall.group_id }}"
-    name: "{{ aws_ec2_instance_name }}"
+    vpc_subnet_id: "{{ my_vpc.vpc.id }}"
   register: ec2
