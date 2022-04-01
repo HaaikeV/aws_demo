@@ -1,2 +1,13 @@
 ---
 # vars file for roles/aws_all_in_one_go
+aws_region: us-east-1
+aws_ec2_key_name: awskey
+aws_instance_type: t2.micro
+aws_ami_image_id: ami-0f88c5923d28f345b
+aws_environment_identifier: test
+aws_ansible_iam_role: iam_ansible_role
+aws_os_type: rhel8
+aws_ec2_group: test
+aws_ec2_instance_name: my_demo_linux
+aws_vpc_name: vpc_test
+aws_vpc_cidr: 10.10.0.0/16

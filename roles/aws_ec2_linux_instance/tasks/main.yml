@@ -31,15 +31,12 @@
 - set_fact:  
     security_group_id_fact: "{{ ec2_group_info_output.security_groups[0].group_id }}"
 
-- name: create a new ec2 key pair for new ec 2 instance in evironment "{{ aws_environment_identifier }}" and region "{{ aws_region }}"
+- name: create a new ec2 pub key for new ec 2 instance in evironment "{{ aws_environment_identifier }}" and region "{{ aws_region }}"
   ec2_key:
     name: "{{ aws_ec2_key_name }}"
     region: "{{ aws_region }}"
+    key_material: 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC8Xvsh1tx6ZStdeOmZOdfyjlEIEaHqP83F2Mw+E4BehpAuAYJQpLmEN5D4/5hTnf0v1BV8ZMviGfynrfDX1Tg8tGFlrnDS7qQdNPfRWAf2o9kgdht2nnGFBAMiCQ6gBNHE4i4KfzhYZzrEqFQzb4JFxQ2NcBcH/hPFpDeFc1rJTZaijR2Fd+snhiNtfhKPtDU6INI8QGx7PFhJUZAQQly6/QXEiRsHvAKfiv0TBTrKhd6DujabN2Ot0R1bFTewxqtgUs03/owpLJ1OkDhKjhWfXkocoZxy43g8M5XuEiI2t8Ry8CyR4CRqf0/t2ITxyZNIYMehZJc5wKSF+doCExPv/k+fbHUSHUJthnXp7QX1NBhqwDcY/qG7beawOCOgt/UfOflPoDaUh5tSh3pMbB68SmdSncxy+L+G12cs3DK6A5CtxDCu/3R3Divzz7cP97MgwUyTO9r/PIsUhKzdSMB8nnirrlCvTtXNBakmC/voPeVEWVyakeHPU+l9aj1VaTs= hvanderm@hvanderm.remote.csb'
   register: ec2_key_output      
-
-- name: Save private key
-  copy: content="{{ ec2_key_output.key.private_key }}" dest="/tmp/{{ aws_ec2_key_name }}.pem" mode=0600
-  when: ec2_key_output.changed
 
 - name: Create an EC2 instance
   ec2_instance:
@@ -58,29 +55,6 @@
       ami_id: "{{ aws_ami_image_id }}"
       owner: "{{ aws_ansible_iam_role }}"
       group: "{{ security_group_id_fact }}"
+    monitoring: yes  
     name: "{{ instance_name }}"
     register: ec2
-
-- name: create microsoft ec2 in evironment "{{ aws_environment_identifier }}" and region "{{ aws_region }}" 
-  ec2:
-    id: "{{ aws_ec2_instance_name }}"
-    instance_profile_name: "{{ aws_ansible_iam_role }}"
-    key_name: "{{ aws_ec2_key_name }}"
-    group_id: "{{ security_group_id_fact }}"
-    instance_type: "{{ aws_instance_type }}"
-    region: "{{ aws_region }}"
-    image: "{{ aws_ami_image_id }}"
-    user_data:  "{{ lookup('file', '{{ aws_ec2_windows_user_data }}') }}"
-    wait: yes
-    wait_timeout: 500
-    instance_tags:
-      instance_name: "{{ aws_ec2_instance_name }}"
-      environment: "{{ aws_environment_identifier }}"
-      operating_system: "{{ aws_os_type }}"
-      ami_id: "{{ aws_ami_image_id }}"
-      owner: "{{ aws_ansible_iam_role }}"
-      group: "{{ security_group_id_fact }}"
-    monitoring: yes
-    vpc_subnet_id: "{{ vpc_subnet_id_fact }}"
-    assign_public_ip: yes
-  register: ec2

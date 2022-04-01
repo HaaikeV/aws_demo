@@ -1,7 +1,7 @@
 ---
 # vars file for aws-vpc
 aws_vpc_name: vpc_test
-aws_region: us-east-2
+aws_region: us-east-1
 aws_environment_identifier: test
 aws_ansible_iam_role: iam_ansible_role
 aws_cidr: 10.10.0.0/16
