@@ -32,7 +32,7 @@
     vpc_id: "{{ my_vpc.vpc.id }}"
     region: "{{ aws_region }}"
     state: present
-    cidr: "{{ aws_cidr }}"
+    cidr: "{{ aws_vpc_cidr }}"
     resource_tags:
         environment: "{{ aws_environment_identifier }}"
         owner: "{{ aws_ansible_iam_role }}"
