@@ -7,18 +7,7 @@
 - name: Setting the correct AMI per us-east-1
   set_fact:
     aws_ami_image_id: ami-09d9c5cdcfb8fc655
-  when: aws_region == "us-west-1" 
-
-- name: create a new ec2 key pair
-  ec2_key:
-    name: "{{ aws_ec2_key_name }}"
-    region: "{{ aws_region }}"
-    key_material: 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC8Xvsh1tx6ZStdeOmZOdfyjlEIEaHqP83F2Mw+E4BehpAuAYJQpLmEN5D4/5hTnf0v1BV8ZMviGfynrfDX1Tg8tGFlrnDS7qQdNPfRWAf2o9kgdht2nnGFBAMiCQ6gBNHE4i4KfzhYZzrEqFQzb4JFxQ2NcBcH/hPFpDeFc1rJTZaijR2Fd+snhiNtfhKPtDU6INI8QGx7PFhJUZAQQly6/QXEiRsHvAKfiv0TBTrKhd6DujabN2Ot0R1bFTewxqtgUs03/owpLJ1OkDhKjhWfXkocoZxy43g8M5XuEiI2t8Ry8CyR4CRqf0/t2ITxyZNIYMehZJc5wKSF+doCExPv/k+fbHUSHUJthnXp7QX1NBhqwDcY/qG7beawOCOgt/UfOflPoDaUh5tSh3pMbB68SmdSncxy+L+G12cs3DK6A5CtxDCu/3R3Divzz7cP97MgwUyTO9r/PIsUhKzdSMB8nnirrlCvTtXNBakmC/voPeVEWVyakeHPU+l9aj1VaTs= hvanderm@hvanderm.remote.csb'
-  register: ec2_key_output
-
-- name: Save private key
-  copy: content="{{ ec2_key_output.key.private_key }}" dest="./{{ aws_ec2_key_name }}.pem" mode=0600
-  when: ec2_key_output.changed  
+  when: aws_region == "us-west-1"   
 
 - name: Create VPC 
   ec2_vpc_net:
