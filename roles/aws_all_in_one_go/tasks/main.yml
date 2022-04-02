@@ -62,7 +62,6 @@
 - name: Create an EC2 instance
   ec2:
     id: "{{ aws_ec2_instance_name }}"
-    instance_profile_name: "{{ aws_ansible_iam_role }}"
     key_name: "{{ aws_ec2_key_name }}"
     region: "{{ aws_region }}"
     group_id: "{{ firewall.group_id }}"
@@ -74,7 +73,6 @@
       environment: "{{ aws_environment_identifier }}"
       operating_system: "{{ aws_os_type }}"
       ami_id: "{{ aws_ami_image_id }}"
-      owner: "{{ aws_ansible_iam_role }}"
       group: "{{ firewall.group_id }}"
     vpc_subnet_id: "{{ my_vpc_subnet.subnet.id }}"
   register: ec2
