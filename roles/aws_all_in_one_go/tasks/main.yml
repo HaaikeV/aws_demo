@@ -44,9 +44,9 @@
       environment: "{{ aws_environment_identifier }}"
     rules:
       - proto: all
-        cidr_ip: "{{ aws_vpc_cidr }}"
-      - proto: all
-        group_name: ansible
+        cidr_ip: 0.0.0.0/0
+#      - proto: all
+#        group_name: ansible
     rules_egress:
       - proto: all
         cidr_ip: 0.0.0.0/0
