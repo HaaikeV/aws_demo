@@ -3,7 +3,7 @@
 - name: Create an EC2 instance
   ec2:
     id: "{{ aws_ec2_instance_name }}"
-    key_name: "{{ aws_key }}"
+    key_name: "{{ aws_ec2_key_name }}"
     region: "{{ aws_region }}"
     group_id: "{{ aws_security_group_name }}"
     instance_type: "{{ aws_instance_type }}"
