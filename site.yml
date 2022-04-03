@@ -5,7 +5,7 @@
    ansible_connection: local
   tasks:
    - include_role:
-       name: aws_all_in_one_go
+       name: aws_ec2_rhel_create
  # - include_role:
  #     name: aws-vpc
  # - include_role:
