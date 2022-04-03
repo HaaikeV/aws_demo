@@ -15,7 +15,7 @@
       operating_system: "{{ aws_os_type }}"
       ami_id: "{{ aws_ami_image_id }}"
       group: "{{ aws_security_group_name }}"
-    vpc_subnet_id: "{{ aws_vpc_id }}"
+    vpc_subnet_id: "{{ aws_vpc_subnet_id }}"
     assign_public_ip: yes
     monitoring: yes
   register: ec2
