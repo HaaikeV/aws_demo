@@ -1,6 +1,0 @@
----
-# vars file for roles/aws_vpc_subnet
-aws_region: us-east-1
-aws_environment_identifier: test
-aws_cidr: 10.10.0.0/16
-aws_ansible_iam_role: iam_ansible_role
