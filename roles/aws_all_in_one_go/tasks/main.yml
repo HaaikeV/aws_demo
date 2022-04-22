@@ -52,22 +52,22 @@
         cidr_ip: 0.0.0.0/0
   register: firewall
 
-- name: Create an EC2 instance
-  ec2:
-    id: "{{ aws_ec2_instance_name }}"
-    key_name: test
-    region: "{{ aws_region }}"
-    group_id: "{{ firewall.group_id }}"
-    instance_type: "{{ aws_instance_type }}"
-    image: "{{ aws_ami_image_id }}"
-    wait: yes
-    instance_tags:
-      instance_name: "{{ aws_ec2_instance_name }}"
-      environment: "{{ aws_environment_identifier }}"
-      operating_system: "{{ aws_os_type }}"
-      ami_id: "{{ aws_ami_image_id }}"
-      group: "{{ firewall.group_id }}"
-    vpc_subnet_id: "{{ my_vpc_subnet.subnet.id }}"
-    assign_public_ip: yes
-    monitoring: yes
-  register: ec2
+#- name: Create an EC2 instance
+#  ec2:
+#    id: "{{ aws_ec2_instance_name }}"
+#    key_name: test
+#    region: "{{ aws_region }}"
+#    group_id: "{{ firewall.group_id }}"
+#    instance_type: "{{ aws_instance_type }}"
+#    image: "{{ aws_ami_image_id }}"
+#    wait: yes
+#    instance_tags:
+#      instance_name: "{{ aws_ec2_instance_name }}"
+#      environment: "{{ aws_environment_identifier }}"
+#      operating_system: "{{ aws_os_type }}"
+#      ami_id: "{{ aws_ami_image_id }}"
+#      group: "{{ firewall.group_id }}"
+#    vpc_subnet_id: "{{ my_vpc_subnet.subnet.id }}"
+#    assign_public_ip: yes
+#    monitoring: yes
+#  register: ec2
