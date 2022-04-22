@@ -8,7 +8,7 @@ aws_environment_identifier: dev
 aws_ansible_iam_role: iam_ansible_role
 aws_os_type: rhel8.4
 aws_ec2_group: test
-aws_ec2_instance_name: safari-web-2
+aws_ec2_instance_name: safari-web-3
 aws_vpc_subnet_id: subnet-09791f886565cbd32
 aws_ec2_cidr: 192.168.0.0/16
 aws_security_group_name: sg-00fd18552157985d2
