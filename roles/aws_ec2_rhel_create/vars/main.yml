@@ -6,7 +6,7 @@ aws_instance_type: t2.micro
 aws_ami_image_id: ami-092b43193629811af
 aws_environment_identifier: dev
 aws_ansible_iam_role: iam_ansible_role
-aws_os_type: rhel8.4
+aws_os_type: rhel8.6
 aws_ec2_group: test
 aws_ec2_instance_name: Tennet-Prod-Web-1
 aws_vpc_subnet_id: subnet-03dd548dc07396f36
