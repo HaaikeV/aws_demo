@@ -1,14 +1,14 @@
 ---
 # vars file for roles/aws_ec2_rhel_create
 aws_region: us-east-2
-aws_ec2_key_name: safari
+aws_ec2_key_name: awskey
 aws_instance_type: t2.micro
-aws_ami_image_id: ami-0ba62214afa52bec7
+aws_ami_image_id: ami-092b43193629811af
 aws_environment_identifier: dev
 aws_ansible_iam_role: iam_ansible_role
 aws_os_type: rhel8.4
 aws_ec2_group: test
-aws_ec2_instance_name: safari-web-3
-aws_vpc_subnet_id: subnet-09791f886565cbd32
+aws_ec2_instance_name: Tennet-Prod-Web-1
+aws_vpc_subnet_id: subnet-03dd548dc07396f36
 aws_ec2_cidr: 192.168.0.0/16
-aws_security_group_name: sg-00fd18552157985d2
+aws_security_group_name: sg-04ec44583e20bf3f7
