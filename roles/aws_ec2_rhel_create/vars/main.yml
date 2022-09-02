@@ -8,7 +8,7 @@ aws_environment_identifier: dev
 aws_ansible_iam_role: iam_ansible_role
 aws_os_type: rhel8.6
 aws_ec2_group: test
-aws_ec2_instance_name: Tennet-Prod-Web-1
+aws_ec2_instance_name: Tennet-Prod-Web-2
 aws_vpc_subnet_id: subnet-03dd548dc07396f36
 aws_ec2_cidr: 192.168.0.0/16
 aws_security_group_name: sg-04ec44583e20bf3f7
